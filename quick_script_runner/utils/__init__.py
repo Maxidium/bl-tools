@@ -7,4 +7,5 @@ from .filesystem import (
 
 from .scripts import (
     get_scripts,
+    script_label,
 )

@@ -1,6 +1,9 @@
 import bpy
 
-from ..utils import get_scripts
+from ..utils import (
+    get_scripts,
+    script_label,
+)
 
 from ..operators.run_script import QSR_OT_RunScript
 from ..operators.open_scripts_folder import QSR_OT_OpenScriptsFolder
@@ -84,7 +87,7 @@ class QSR_PT_MainPanel(bpy.types.Panel):
 
             op = row.operator(
                 QSR_OT_RunScript.bl_idname,
-                text=script,
+                text=script_label(script),
                 icon="PLAY",
             )
 

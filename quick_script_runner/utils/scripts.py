@@ -1,6 +1,7 @@
 import os
 
 from ..paths import category_dir
+from ..config import (SCRIPT_EXTENSION,SHOW_SCRIPT_EXTENSION,)
 
 
 def get_scripts(category):
@@ -17,3 +18,10 @@ def get_scripts(category):
     scripts.sort()
 
     return scripts
+
+def script_label(filename):
+
+    if SHOW_SCRIPT_EXTENSION:
+        return filename
+
+    return filename.removesuffix(SCRIPT_EXTENSION)

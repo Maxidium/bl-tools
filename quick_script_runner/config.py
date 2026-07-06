@@ -1,3 +1,6 @@
+SCRIPT_EXTENSION = ".py"
+SHOW_SCRIPT_EXTENSION = False
+
 CATEGORIES = [
     ("MESH", "Mesh", ""),
     ("RIG", "Rig", ""),
