@@ -6,6 +6,7 @@ from ..operators.open_scripts_folder import QSR_OT_OpenScriptsFolder
 from ..operators.add_script import QSR_OT_AddScript
 from ..operators.edit_script import QSR_OT_EditScript
 from ..operators.delete_script import QSR_OT_DeleteScript
+from ..operators.new_script import QSR_OT_NewScript
 
 class QSR_PT_MainPanel(bpy.types.Panel):
     bl_label = "QSR"
@@ -25,6 +26,7 @@ class QSR_PT_MainPanel(bpy.types.Panel):
         # -------------------------------------------------
 
         row = layout.row(align=True)
+
         row.operator(
             QSR_OT_OpenScriptsFolder.bl_idname,
             text="Open Scripts Folder",
@@ -35,6 +37,14 @@ class QSR_PT_MainPanel(bpy.types.Panel):
             QSR_OT_AddScript.bl_idname,
             text="Add script",
             icon="ADD",
+        )
+
+        op.category = wm.qsr_category
+
+        op = row.operator(
+            QSR_OT_NewScript.bl_idname,
+            text="",
+            icon="FILE_NEW",
         )
 
         op.category = wm.qsr_category
