@@ -4,6 +4,8 @@ from ..utils import get_scripts
 from ..operators.run_script import QSR_OT_RunScript
 from ..operators.open_scripts_folder import QSR_OT_OpenScriptsFolder
 from ..operators.add_script import QSR_OT_AddScript
+from ..operators.edit_script import QSR_OT_EditScript
+from ..operators.delete_script import QSR_OT_DeleteScript
 
 class QSR_PT_MainPanel(bpy.types.Panel):
     bl_label = "QSR"
@@ -23,7 +25,6 @@ class QSR_PT_MainPanel(bpy.types.Panel):
         # -------------------------------------------------
 
         row = layout.row(align=True)
-
         row.operator(
             QSR_OT_OpenScriptsFolder.bl_idname,
             text="Open Scripts Folder",
@@ -44,6 +45,7 @@ class QSR_PT_MainPanel(bpy.types.Panel):
         # CATEGORY
         # -------------------------------------------------
 
+        layout.label(text="Category")
         row = layout.row(align=True)
 
         row.prop(
@@ -57,7 +59,7 @@ class QSR_PT_MainPanel(bpy.types.Panel):
         # -------------------------------------------------
         # SCRIPTS
         # -------------------------------------------------
-
+        
         current_category = wm.qsr_category
         scripts = get_scripts(current_category)
 
@@ -67,10 +69,30 @@ class QSR_PT_MainPanel(bpy.types.Panel):
 
         for script in scripts:
 
-            op = layout.operator(
+            row = layout.row(align=True)
+
+            op = row.operator(
                 QSR_OT_RunScript.bl_idname,
                 text=script,
                 icon="PLAY",
+            )
+
+            op.category = current_category
+            op.script_name = script
+
+            op = row.operator(
+                QSR_OT_EditScript.bl_idname,
+                text="",
+                icon="GREASEPENCIL",
+            )
+
+            op.category = current_category
+            op.script_name = script
+
+            op = row.operator(
+                QSR_OT_DeleteScript.bl_idname,
+                text="",
+                icon="TRASH",
             )
 
             op.category = current_category
