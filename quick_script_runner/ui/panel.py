@@ -11,6 +11,9 @@ from ..operators.add_script import QSR_OT_AddScript
 from ..operators.edit_script import QSR_OT_EditScript
 from ..operators.delete_script import QSR_OT_DeleteScript
 from ..operators.new_script import QSR_OT_NewScript
+from ..operators.recreate_folders import QSR_OT_RecreateFolders
+from ..operators.rename_script import QSR_OT_RenameScript
+from ..operators.open_config import QSR_OT_OpenConfig
 
 class QSR_PT_MainPanel(bpy.types.Panel):
     bl_label = "QSR"
@@ -29,29 +32,47 @@ class QSR_PT_MainPanel(bpy.types.Panel):
         # TOOLS
         # -------------------------------------------------
 
-        row = layout.row(align=True)
+        box = layout.box()
+
+        row = box.row(align=True)
 
         row.operator(
             QSR_OT_OpenScriptsFolder.bl_idname,
-            text="Open Scripts Folder",
+            text="Scripts Directory",
             icon="FILE_FOLDER",
         )
 
-        op = row.operator(
-            QSR_OT_AddScript.bl_idname,
-            text="Add script",
-            icon="ADD",
+        row.separator(factor=0.8)
+
+        row.operator(
+            QSR_OT_RecreateFolders.bl_idname,
+            text="",
+            icon="FILE_REFRESH",
         )
 
-        op.category = wm.qsr_category
+        row.separator(factor=0.8)
 
         op = row.operator(
             QSR_OT_NewScript.bl_idname,
             text="",
             icon="FILE_NEW",
         )
-
         op.category = wm.qsr_category
+
+        op = row.operator(
+            QSR_OT_AddScript.bl_idname,
+            text="",
+            icon="IMPORT",
+        )
+        op.category = wm.qsr_category
+
+        row.separator(factor=0.8)
+
+        row.operator(
+            QSR_OT_OpenConfig.bl_idname,
+            text="",
+            icon="PREFERENCES",
+        )        
 
         layout.separator()
 
@@ -59,16 +80,14 @@ class QSR_PT_MainPanel(bpy.types.Panel):
         # CATEGORY
         # -------------------------------------------------
 
-        layout.label(text="Category")
-        row = layout.row(align=True)
+        box = layout.box()
 
+        row = box.row(align=True)
         row.prop(
             wm,
             "qsr_category",
             expand=True,
         )
-
-        layout.separator()
 
         # -------------------------------------------------
         # SCRIPTS
@@ -77,29 +96,51 @@ class QSR_PT_MainPanel(bpy.types.Panel):
         current_category = wm.qsr_category
         scripts = get_scripts(current_category)
 
-        if not scripts:
-            layout.label(text="No scripts found")
+        if scripts is None:
+            box.label(
+                text="Category folder is missing",
+                icon="ERROR",
+            )
             return
+
+        if not scripts:
+            box.label(
+                text="No scripts found",
+                icon="INFO",
+            )
+            return
+
+        col = box.column(align=True)
 
         for script in scripts:
 
-            row = layout.row(align=True)
+            row = col.row(align=True)
 
             op = row.operator(
                 QSR_OT_RunScript.bl_idname,
                 text=script_label(script),
                 icon="PLAY",
             )
-
             op.category = current_category
             op.script_name = script
+
+            row.separator(factor=0.8)
+
+            op = row.operator(
+                QSR_OT_RenameScript.bl_idname,
+                text="",
+                icon="FILE_TEXT",
+            )
+            op.category = current_category
+            op.script_name = script            
+
+            row.separator(factor=0.8)
 
             op = row.operator(
                 QSR_OT_EditScript.bl_idname,
                 text="",
                 icon="GREASEPENCIL",
             )
-
             op.category = current_category
             op.script_name = script
 
@@ -108,6 +149,5 @@ class QSR_PT_MainPanel(bpy.types.Panel):
                 text="",
                 icon="TRASH",
             )
-
             op.category = current_category
             op.script_name = script

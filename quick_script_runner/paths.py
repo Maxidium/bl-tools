@@ -1,6 +1,6 @@
 import os
 
-from .config import CATEGORY_FOLDERS
+from .config import CATEGORIES
 
 
 def addon_dir():
@@ -11,10 +11,19 @@ def scripts_root():
 
 
 def category_dir(category):
-    folder = CATEGORY_FOLDERS.get(category, "misc")
+    folder = next(
+        folder
+        for identifier, _, folder in CATEGORIES
+        if identifier == category
+    )
 
-    path = os.path.join(scripts_root(), folder)
+    return os.path.join(scripts_root(),folder,)
 
-    os.makedirs(path, exist_ok=True)
+def ensure_category_dirs():
 
-    return path
+    for identifier, _, _ in CATEGORIES:
+
+        os.makedirs(
+            category_dir(identifier),
+            exist_ok=True,
+        )

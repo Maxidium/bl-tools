@@ -29,6 +29,8 @@ def copy_file(source, destination):
         destination,
     )
 
+def rename_file(source, destination):
+    os.rename(source, destination)
 
 def delete_file(path):
 

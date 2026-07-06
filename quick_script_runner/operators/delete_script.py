@@ -3,6 +3,7 @@ import os
 
 from ..paths import category_dir
 from ..utils import delete_file
+from ..config import CONFIRM_DELETE
 
 
 class QSR_OT_DeleteScript(bpy.types.Operator):
@@ -34,10 +35,11 @@ class QSR_OT_DeleteScript(bpy.types.Operator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
-        return context.window_manager.invoke_confirm(
-            self,
-            event,
-        )
+
+        if CONFIRM_DELETE:
+            return context.window_manager.invoke_confirm(self, event)
+
+        return self.execute(context)
 
     def draw(self, context):
         self.layout.label(text=f"Delete '{self.script_name}'?")

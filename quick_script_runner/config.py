@@ -1,18 +1,25 @@
+# Manual configuraition of QSR add-on
+# After RESTART!!!
+
+CONFIRM_DELETE = True
+
+FORMAT_SCRIPT_NAMES = False     # Display: script_name.py -> Script Name
+SHOW_SCRIPT_EXTENSION = False    # Used only when FORMAT_SCRIPT_NAMES is False
+
 SCRIPT_EXTENSION = ".py"
-SHOW_SCRIPT_EXTENSION = False
+
+ACRONYMS = {
+    "add": "ADD",    
+    "new": "NEW",        
+    "delete": "DELETE",    
+    "export": "EXPORT",
+    "uv": "UV",    
+}
 
 CATEGORIES = [
-    ("MESH", "Mesh", ""),
-    ("RIG", "Rig", ""),
-    ("UV", "UV", ""),
-    ("UTILITY", "Utility", ""),
-    ("MISC", "Misc", ""),
+    ("MESH", "Mesh", "mesh"),
+    ("RIG", "Rig", "rig"),
+    ("UV", "UV", "uv"),
+    ("UTILITY", "Utility", "utility"),
+    ("MISC", "Misc", "misc"),
 ]
-
-CATEGORY_FOLDERS = {
-    "MESH": "mesh",
-    "RIG": "rig",
-    "UV": "uv",
-    "UTILITY": "utility",
-    "MISC": "misc",
-}

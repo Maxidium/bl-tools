@@ -3,6 +3,7 @@ from .filesystem import (
     create_file,
     copy_file,
     delete_file,
+    rename_file,
 )
 
 from .scripts import (

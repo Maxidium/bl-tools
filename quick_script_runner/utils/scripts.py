@@ -1,12 +1,20 @@
 import os
 
 from ..paths import category_dir
-from ..config import (SCRIPT_EXTENSION,SHOW_SCRIPT_EXTENSION,)
+from ..config import (
+    ACRONYMS,
+    FORMAT_SCRIPT_NAMES,
+    SCRIPT_EXTENSION,
+    SHOW_SCRIPT_EXTENSION,
+)
 
 
 def get_scripts(category):
 
     path = category_dir(category)
+
+    if not os.path.isdir(path):
+        return None
 
     scripts = []
 
@@ -19,9 +27,29 @@ def get_scripts(category):
 
     return scripts
 
+
 def script_label(filename):
 
-    if SHOW_SCRIPT_EXTENSION:
-        return filename
+    label = filename
 
-    return filename.removesuffix(SCRIPT_EXTENSION)
+    if FORMAT_SCRIPT_NAMES:
+
+        label = label.removesuffix(SCRIPT_EXTENSION)
+
+        words = []
+
+        for word in label.split("_"):
+
+            words.append(
+                ACRONYMS.get(
+                    word.lower(),
+                    word.capitalize(),
+                )
+            )
+
+        return " ".join(words)
+
+    if not SHOW_SCRIPT_EXTENSION:
+        label = label.removesuffix(SCRIPT_EXTENSION)
+
+    return label

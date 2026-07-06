@@ -10,11 +10,9 @@ bl_info = {
 
 import bpy
 
-from .config import (
-    CATEGORIES,
-    CATEGORY_FOLDERS,
-)
+from .config import (CATEGORIES,)
 from .paths import category_dir
+from .paths import ensure_category_dirs
 
 from .operators import classes as operator_classes
 from .ui import classes as ui_classes
@@ -33,13 +31,15 @@ def register():
 
     bpy.types.WindowManager.qsr_category = bpy.props.EnumProperty(
         name="Category",
-        items=CATEGORIES,
+        items=[
+            (identifier, name, "")
+            for identifier, name, _
+            in CATEGORIES
+        ],
         default="MESH",
     )
 
-    for category in CATEGORY_FOLDERS:
-        category_dir(category)
-
+    ensure_category_dirs()
 
 def unregister():
 
