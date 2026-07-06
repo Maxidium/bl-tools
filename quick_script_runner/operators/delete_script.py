@@ -2,12 +2,13 @@ import bpy
 import os
 
 from ..paths import category_dir
+from ..utils import delete_file
 
 
 class QSR_OT_DeleteScript(bpy.types.Operator):
     bl_idname = "qsr.delete_script"
     bl_label = "Delete Script"
-    bl_description = "Delete selected script!!!"
+    bl_description = "Delete selected script"
 
     category: bpy.props.StringProperty()
     script_name: bpy.props.StringProperty()
@@ -23,7 +24,7 @@ class QSR_OT_DeleteScript(bpy.types.Operator):
             self.report({'ERROR'}, "Script not found")
             return {'CANCELLED'}
 
-        os.remove(script_path)
+        delete_file(script_path)
 
         self.report(
             {'INFO'},

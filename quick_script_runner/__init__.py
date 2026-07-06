@@ -1,8 +1,8 @@
 bl_info = {
     "name": "QSR - Quick Script Runner",
-    "author": "GPT",
-    "version": (1, 0, 0),
-    "blender": (5, 1, 0),
+    "author": "Maxidium and GPT",
+    "version": (2, 0, 0),
+    "blender": (5, 0, 0),
     "location": "View3D > N-Panel > QSR",
     "description": "Quick categorized script runner",
     "category": "Development",

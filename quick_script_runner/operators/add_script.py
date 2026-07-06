@@ -1,10 +1,10 @@
 import bpy
-import shutil
 import os
 
 from bpy_extras.io_utils import ImportHelper
 
 from ..paths import category_dir
+from ..utils import copy_file
 
 
 class QSR_OT_AddScript(bpy.types.Operator, ImportHelper):
@@ -32,10 +32,7 @@ class QSR_OT_AddScript(bpy.types.Operator, ImportHelper):
             self.report({'ERROR'}, "Script already exists")
             return {'CANCELLED'}
 
-        shutil.copy2(
-            self.filepath,
-            destination,
-        )
+        copy_file(self.filepath,destination,)
 
         self.report(
             {'INFO'},

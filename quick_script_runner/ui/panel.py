@@ -1,6 +1,7 @@
 import bpy
 
 from ..utils import get_scripts
+
 from ..operators.run_script import QSR_OT_RunScript
 from ..operators.open_scripts_folder import QSR_OT_OpenScriptsFolder
 from ..operators.add_script import QSR_OT_AddScript

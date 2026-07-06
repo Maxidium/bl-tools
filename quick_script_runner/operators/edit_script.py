@@ -1,9 +1,8 @@
 import bpy
 import os
-import subprocess
-import sys
 
 from ..paths import category_dir
+from ..utils import open_path
 
 
 class QSR_OT_EditScript(bpy.types.Operator):
@@ -25,13 +24,6 @@ class QSR_OT_EditScript(bpy.types.Operator):
             self.report({'ERROR'}, "Script not found")
             return {'CANCELLED'}
 
-        if sys.platform == "win32":
-            os.startfile(script_path)
-
-        elif sys.platform == "darwin":
-            subprocess.Popen(["open", script_path])
-
-        else:
-            subprocess.Popen(["xdg-open", script_path])
+        open_path(script_path)
 
         return {'FINISHED'}

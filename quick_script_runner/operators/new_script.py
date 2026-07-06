@@ -2,6 +2,7 @@ import bpy
 import os
 
 from ..paths import category_dir
+from ..utils import (create_file, open_path,)
 
 
 class QSR_OT_NewScript(bpy.types.Operator):
@@ -51,7 +52,9 @@ class QSR_OT_NewScript(bpy.types.Operator):
             self.report({'ERROR'}, "Script already exists")
             return {'CANCELLED'}
 
-        open(script_path, "w", encoding="utf-8").close()
+        create_file(script_path)
+        
+        open_path(script_path)
 
         self.report(
             {'INFO'},
