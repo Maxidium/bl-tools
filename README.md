@@ -1,4 +1,2 @@
-# bl-scripts
-Blender scripts (vibecoded) that help you quickly access some unique features while working with Blender
-
-123
+# bl-tools
+Simple Blender Tools that help to get quick access to important features for long workflow
