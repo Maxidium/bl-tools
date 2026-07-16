@@ -3,26 +3,35 @@ import bpy
 
 class MerginatorProperties(bpy.types.PropertyGroup):
 
-    triangulate: bpy.props.BoolProperty(
-        name="Triangulate",
-        default=True,
-    )
-
     join_meshes: bpy.props.BoolProperty(
         name="Join Meshes",
         default=True,
     )
 
-    rename_objects: bpy.props.BoolProperty(
-        name="Rename Objects",
+    rename: bpy.props.BoolProperty(
+        name="Rename",
         default=True,
+    )
+
+    use_collection_prefix: bpy.props.BoolProperty(
+        name="Use Collection Prefix",
+        default=False,
+    )
+
+    custom_name: bpy.props.StringProperty(
+        name="Custom Name",
+        default="submesh_{i:02d}_LOD_1",
+    )
+
+    triangulate: bpy.props.BoolProperty(
+        name="Triangulate",
+        default=False,
     )
 
     select_result: bpy.props.BoolProperty(
         name="Select Result",
         default=True,
     )
-
 
 classes = (
     MerginatorProperties,

@@ -1,6 +1,8 @@
 import bpy
 
 from .join import join_meshes
+from .rename import rename_collections
+from .rename import rename_objects
 
 class MERGINATOR_OT_Run(bpy.types.Operator):
     bl_idname = "merginator.run"
@@ -22,8 +24,9 @@ class MERGINATOR_OT_Run(bpy.types.Operator):
         if settings.join_meshes:
             join_meshes(context,collection,)
 
-        if settings.rename_objects:
-            pass
+        if settings.rename:
+            rename_collections(collection,settings,)
+            rename_objects(collection,settings,)
 
         if settings.triangulate:
             pass
