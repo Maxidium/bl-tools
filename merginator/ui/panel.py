@@ -11,6 +11,10 @@ class MERGINATOR_PT_Main(bpy.types.Panel):
     def draw(self, context):
 
         layout = self.layout
+        settings = context.window_manager.merginator
+
+        layout.prop(settings, "triangulate")
+        layout.prop(settings, "select_all")
 
         layout.operator(
             "merginator.run",

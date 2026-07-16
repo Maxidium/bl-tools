@@ -8,6 +8,8 @@ class MERGINATOR_OT_Run(bpy.types.Operator):
 
     def execute(self, context):
 
+        settings = context.window_manager.merginator
+
         self.report(
             {'INFO'},
             "Coming soon",
