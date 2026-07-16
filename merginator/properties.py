@@ -8,49 +8,18 @@ class MerginatorProperties(bpy.types.PropertyGroup):
         default=True,
     )
 
-    quad_method: bpy.props.EnumProperty(
-        name="Quad Method",
-        items=[
-            ('FIXED', "Fixed", ""),
-            ('FIXED_ALTERNATE', "Fixed Alternate", ""),
-            ('BEAUTY', "Beauty", ""),
-            ('SHORTEST_DIAGONAL', "Shortest Diagonal", ""),
-            ('LONGEST_DIAGONAL', "Longest Diagonal", ""),
-        ],
-        default='BEAUTY',
-    )
-
-    ngon_method: bpy.props.EnumProperty(
-        name="N-gon Method",
-        items=[
-            ('CLIP', "Clip", ""),
-            ('BEAUTY', "Beauty", ""),
-        ],
-        default='BEAUTY',
-    )
-
-    keep_normals: bpy.props.BoolProperty(
-        name="Keep Normals",
+    join_meshes: bpy.props.BoolProperty(
+        name="Join Meshes",
         default=True,
     )
 
-    use_custom_naming: bpy.props.BoolProperty(
-        name="Custom Naming",
-        default=False,
+    rename_objects: bpy.props.BoolProperty(
+        name="Rename Objects",
+        default=True,
     )
 
-    use_collection_prefix: bpy.props.BoolProperty(
-        name="Use Collection Name as Prefix",
-        default=False,
-    )
-
-    custom_name: bpy.props.StringProperty(
-        name="Custom Name",
-        default="submesh_{i:02d}_LOD_1",
-    )
-
-    select_all: bpy.props.BoolProperty(
-        name="Select All",
+    select_result: bpy.props.BoolProperty(
+        name="Select Result",
         default=True,
     )
 
