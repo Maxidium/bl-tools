@@ -1,24 +1,22 @@
 import bpy
 
+from ..utils.collections import iter_mesh_objects
+
 
 def collect_groups(collection):
     """
     Collect mesh objects grouped by material.
-    
+
     Returns:
-        dict:
-            {
-                material: [objects],
-                None: [objects without material]
-            }
+        {
+            material: [objects],
+            None: [objects without material]
+        }
     """
 
     groups = {}
 
-    for obj in collection.objects:
-
-        if obj.type != 'MESH':
-            continue
+    for obj in iter_mesh_objects(collection):
 
         material = None
 
@@ -32,18 +30,16 @@ def collect_groups(collection):
 
 def get_target_collection(parent_collection, material):
     """
-    Get or create subcollection for material group.
+    Get or create collection for material group.
     """
 
     if material:
         name = f"{material.name} - {parent_collection.name}"
-
     else:
         name = "_NonSorted"
 
 
     for child in parent_collection.children:
-
         if child.name == name:
             return child
 
@@ -54,7 +50,7 @@ def get_target_collection(parent_collection, material):
 
 
     if material is None:
-        new_collection.color_tag = 'COLOR_01' # Red
+        new_collection.color_tag = 'COLOR_01'
 
 
     return new_collection
@@ -62,23 +58,20 @@ def get_target_collection(parent_collection, material):
 
 def move_to_collection(obj, target_collection):
     """
-    Move object to target collection.
+    Move object into target collection.
     """
 
-    current_collections = list(obj.users_collection)
-
-    for collection in current_collections:
+    for collection in list(obj.users_collection):
         collection.objects.unlink(obj)
 
 
-    if obj.name not in target_collection.objects:
-        target_collection.objects.link(obj)
+    target_collection.objects.link(obj)
 
 
 
 def group_by_material(collection):
     """
-    Group mesh objects into collections by material.
+    Group mesh objects by their material.
     """
 
     groups = collect_groups(collection)
@@ -90,7 +83,6 @@ def group_by_material(collection):
 
 
         for obj in objects:
-
             move_to_collection(obj,target_collection,)
 
 
@@ -98,9 +90,10 @@ class MERGINATOR_OT_GroupMaterials(bpy.types.Operator):
 
     bl_idname = "merginator.group_materials"
     bl_label = "Group by Material"
-    bl_description = "Group mesh objects into collections by material"
+    bl_description = "Create subcollections based on object materials"
 
     bl_options = {'REGISTER', 'UNDO'}
+
 
     def execute(self, context):
 
@@ -111,11 +104,14 @@ class MERGINATOR_OT_GroupMaterials(bpy.types.Operator):
             .collection
         )
 
+
         group_by_material(collection)
+
 
         self.report(
             {'INFO'},
             "Objects grouped by material"
         )
 
-        return {'FINISHED'}  
+
+        return {'FINISHED'}

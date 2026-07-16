@@ -48,3 +48,8 @@ class MERGINATOR_PT_Main(bpy.types.Panel):
             "merginator.group_materials",
             text="Group by Material",
         )
+
+        utility_box.operator(
+            "merginator.move_to_parent",
+            text="Move Objects to Parent",
+        )
