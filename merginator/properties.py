@@ -13,24 +13,14 @@ class MerginatorProperties(bpy.types.PropertyGroup):
         default=True,
     )
 
-    use_collection_prefix: bpy.props.BoolProperty(
-        name="Use Collection Prefix",
-        default=False,
-    )
-
     custom_name: bpy.props.StringProperty(
-        name="Custom Name",
+        name="Pattern",
         default="submesh_{i:02d}_LOD_1",
     )
 
-    triangulate: bpy.props.BoolProperty(
-        name="Triangulate",
+    use_auto_name: bpy.props.BoolProperty(
+        name="Use Auto Name",
         default=False,
-    )
-
-    select_result: bpy.props.BoolProperty(
-        name="Select Result",
-        default=True,
     )
 
 classes = (

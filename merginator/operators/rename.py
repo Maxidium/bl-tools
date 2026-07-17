@@ -3,44 +3,53 @@ import bpy
 from ..utils.collections import iter_mesh_objects
 
 
-def build_name(settings, prefix, index):
+def build_name(settings, parent_collection, child_collection, index):
     """
     Build object or collection name.
     """
 
-    if settings.use_collection_prefix:
-        return f"{prefix}_{index:02d}"
+    if settings.use_auto_name:
+
+        prefix = child_collection.name.removesuffix(
+            f" - {parent_collection.name}"
+        )
+
+        return f"{parent_collection.name}_{prefix}"
 
     try:
         return settings.custom_name.format(i=index)
 
     except (KeyError, IndexError, ValueError):
-        return f"{prefix}_{index:02d}"
+        return f"{parent_collection.name}_{index:02d}"
 
 
 def rename_collections(collection, settings):
     """
-    Rename direct child collections.
+    Rename child collections.
     """
 
     for index, child_collection in enumerate(collection.children):
 
         child_collection.name = build_name(
             settings,
-            collection.name,
+            collection,
+            child_collection,
             index,
         )
 
 
 def rename_objects(collection, settings):
     """
-    Rename mesh objects recursively.
+    Rename mesh objects inside child collections.
     """
 
-    for index, obj in enumerate(iter_mesh_objects(collection)):
+    for child_collection in collection.children:
 
-        obj.name = build_name(
-            settings,
-            collection.name,
-            index,
-        )
+        for index, obj in enumerate(iter_mesh_objects(child_collection)):
+
+            obj.name = build_name(
+                settings,
+                collection,
+                child_collection,
+                index,
+            )

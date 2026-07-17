@@ -28,12 +28,6 @@ class MERGINATOR_OT_Run(bpy.types.Operator):
             rename_collections(collection,settings,)
             rename_objects(collection,settings,)
 
-        if settings.triangulate:
-            pass
-
-        if settings.select_result:
-            pass
-
 
         # button
 

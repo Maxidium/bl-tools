@@ -13,43 +13,39 @@ class MERGINATOR_PT_Main(bpy.types.Panel):
         layout = self.layout
         settings = context.window_manager.merginator
 
-
-        # -------------------------------------------------
-        # MAIN
-        # -------------------------------------------------
+        # --------------------------------------------------
+        # Utilities
+        # --------------------------------------------------
 
         box = layout.box()
-        box.label(text="Merginator")
+        row = box.row(align=True)
+
+        row.operator("merginator.group_by_materials",icon="OUTLINER_OB_GROUP_INSTANCE",)
+        row.separator(factor=0.8)
+        row.operator("merginator.move_to_parent",text="Flatten Collections",icon="AREA_JOIN_UP",)
+
+        # --------------------------------------------------
+        # Pipeline
+        # --------------------------------------------------
+
+        layout.separator()
+
+        box = layout.box()
 
         box.prop(settings,"join_meshes",)
-
+        
         box.prop(settings, "rename")
         if settings.rename:
+            
             rename_box = box.box()
-            rename_box.prop(settings,"custom_name",)
-            rename_box.prop(settings,"use_collection_prefix",)
+            rename_box.prop(settings, "use_auto_name")
 
-        #box.prop(settings,"triangulate",)
-        #box.prop(settings,"select_result",)
+            row = rename_box.row()
+            row.enabled = not settings.use_auto_name
+            row.prop(settings, "custom_name")
 
-        box.operator("merginator.run",text="Merginate",)
+        # --------------------------------------------------
+        # Run
+        # --------------------------------------------------
 
-        # -------------------------------------------------
-        # UTILITIES
-        # -------------------------------------------------
-
-        utility_box = layout.box()
-
-        utility_box.label(
-            text="Utilities"
-        )
-
-        utility_box.operator(
-            "merginator.group_materials",
-            text="Group by Material",
-        )
-
-        utility_box.operator(
-            "merginator.move_to_parent",
-            text="Move Objects to Parent",
-        )
+        layout.operator("merginator.run",text="Merginate",)

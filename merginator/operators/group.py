@@ -68,7 +68,6 @@ def move_to_collection(obj, target_collection):
     target_collection.objects.link(obj)
 
 
-
 def group_by_material(collection):
     """
     Group mesh objects by their material.
@@ -86,9 +85,9 @@ def group_by_material(collection):
             move_to_collection(obj,target_collection,)
 
 
-class MERGINATOR_OT_GroupMaterials(bpy.types.Operator):
+class MERGINATOR_OT_GroupByMaterials(bpy.types.Operator):
 
-    bl_idname = "merginator.group_materials"
+    bl_idname = "merginator.group_by_materials"
     bl_label = "Group by Material"
     bl_description = "Create subcollections based on object materials"
 
