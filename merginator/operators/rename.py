@@ -3,18 +3,30 @@ import bpy
 from ..utils.collections import iter_mesh_objects
 
 
-def build_name(settings, parent_collection, child_collection, index):
+def format_object_name(settings, parent_collection, child_collection, index):
     """
-    Build object or collection name.
+    Build object name.
     """
 
-    if settings.use_auto_name:
+    group = child_collection.name.removesuffix(
+        f" - {parent_collection.name}"
+    )
 
-        prefix = child_collection.name.removesuffix(
-            f" - {parent_collection.name}"
-        )
+    if settings.name_mode == "AUTO":
 
-        return f"{parent_collection.name}_{prefix}"
+        match settings.order_index:
+
+            case "NONE":
+                return f"{parent_collection.name}_{group}"
+
+            case "BEFORE_COLLECTION":
+                return f"{index:02d}_{parent_collection.name}_{group}"
+
+            case "BEFORE_GROUP":
+                return f"{parent_collection.name}_{index:02d}_{group}"
+
+            case "AFTER_GROUP":
+                return f"{parent_collection.name}_{group}_{index:02d}"
 
     try:
         return settings.custom_name.format(i=index)
@@ -23,33 +35,22 @@ def build_name(settings, parent_collection, child_collection, index):
         return f"{parent_collection.name}_{index:02d}"
 
 
-def rename_collections(collection, settings):
-    """
-    Rename child collections.
-    """
-
-    for index, child_collection in enumerate(collection.children):
-
-        child_collection.name = build_name(
-            settings,
-            collection,
-            child_collection,
-            index,
-        )
-
-
 def rename_objects(collection, settings):
     """
     Rename mesh objects inside child collections.
     """
 
+    index = 0
+
     for child_collection in collection.children:
 
-        for index, obj in enumerate(iter_mesh_objects(child_collection)):
+        for obj in iter_mesh_objects(child_collection):
 
-            obj.name = build_name(
+            obj.name = format_object_name(
                 settings,
                 collection,
                 child_collection,
                 index,
             )
+
+            index += 1

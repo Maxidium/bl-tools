@@ -33,16 +33,22 @@ class MERGINATOR_PT_Main(bpy.types.Panel):
         box = layout.box()
 
         box.prop(settings,"join_meshes",)
-        
+
         box.prop(settings, "rename")
+
         if settings.rename:
-            
             rename_box = box.box()
-            rename_box.prop(settings, "use_auto_name")
 
             row = rename_box.row()
-            row.enabled = not settings.use_auto_name
-            row.prop(settings, "custom_name")
+            row.prop(settings, "name_mode", expand=True)
+
+            if settings.name_mode == "AUTO":
+                rename_box.prop(settings, "order_index",text="Index")
+            else:
+                rename_box.prop(settings, "custom_name",text="Pattern")
+
+        box.prop(settings, "move_to_parent", text="Flatten Collection")
+        box.prop(settings, "select_result")
 
         # --------------------------------------------------
         # Run
