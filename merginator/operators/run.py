@@ -1,5 +1,6 @@
 import bpy
 
+from .modifiers import apply_modifiers
 from .transform import apply_all_transforms
 from .join import join_meshes
 from .rename import rename_objects
@@ -21,6 +22,10 @@ class MERGINATOR_OT_Run(bpy.types.Operator):
             self.report({'ERROR'},"No active collection",)
             return {'CANCELLED'}
         
+
+        if settings.apply_modifiers:
+            apply_modifiers(collection,settings.ignore_armature_modifier,)
+
         apply_all_transforms(collection)
 
         if settings.join_meshes:

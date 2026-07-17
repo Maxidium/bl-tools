@@ -32,6 +32,12 @@ class MERGINATOR_PT_Main(bpy.types.Panel):
 
         box = layout.box()
 
+        box.prop(settings, "apply_modifiers")
+
+        if settings.apply_modifiers:
+            modifier_box = box.box()
+            modifier_box.prop(settings,"ignore_armature_modifier")
+
         box.prop(settings,"join_meshes",)
 
         box.prop(settings, "rename")

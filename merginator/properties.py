@@ -2,7 +2,21 @@ import bpy
 
 
 class MerginatorProperties(bpy.types.PropertyGroup):
+    
+    # ------------------------------------------------------------
+    # Modifiers
+    # ------------------------------------------------------------
 
+    apply_modifiers: bpy.props.BoolProperty(
+        name="Apply Modifiers",
+        default=False,
+    )
+
+    ignore_armature_modifier: bpy.props.BoolProperty(
+        name="Ignore Armature Modifier",
+        default=True,
+    )
+        
     # ------------------------------------------------------------
     # Join
     # ------------------------------------------------------------
