@@ -32,11 +32,11 @@ class MERGINATOR_PT_Main(bpy.types.Panel):
 
         box = layout.box()
 
-        box.prop(settings, "apply_modifiers")
+        #box.prop(settings, "apply_modifiers")
 
-        if settings.apply_modifiers:
-            modifier_box = box.box()
-            modifier_box.prop(settings,"ignore_armature_modifier")
+        #if settings.apply_modifiers:
+            #modifier_box = box.box()
+            #modifier_box.prop(settings,"ignore_armature_modifier")
 
         box.prop(settings,"join_meshes",)
 
@@ -60,4 +60,4 @@ class MERGINATOR_PT_Main(bpy.types.Panel):
         # Run
         # --------------------------------------------------
 
-        layout.operator("merginator.run",text="Meginate",)
+        layout.operator("merginator.run",text="Merginate!")

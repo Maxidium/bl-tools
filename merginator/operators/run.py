@@ -23,10 +23,10 @@ class MERGINATOR_OT_Run(bpy.types.Operator):
             return {'CANCELLED'}
         
 
-        if settings.apply_modifiers:
+        # It's acting weird. Temporarily disabled.
+        #if settings.apply_modifiers:
             apply_modifiers(collection,settings.ignore_armature_modifier,)
-
-        apply_all_transforms(collection)
+        #apply_all_transforms(collection)
 
         if settings.join_meshes:
             join_meshes(context,collection,)

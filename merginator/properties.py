@@ -14,7 +14,7 @@ class MerginatorProperties(bpy.types.PropertyGroup):
 
     ignore_armature_modifier: bpy.props.BoolProperty(
         name="Ignore Armature Modifier",
-        default=True,
+        default=False,
     )
         
     # ------------------------------------------------------------
@@ -41,7 +41,7 @@ class MerginatorProperties(bpy.types.PropertyGroup):
             ("AUTO", "Auto Name", "Generate names automatically"),
             ("CUSTOM", "Custom Name", "Use a custom naming pattern"),
         ],
-        default="AUTO",
+        default="CUSTOM",
     )
 
     order_index: bpy.props.EnumProperty(
