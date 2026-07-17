@@ -1,6 +1,9 @@
 Blender add-ons created with AI assistance. The author guided the development process, learned from the generated code, and adapted it to fit the intended workflow.
 
 ## QSR (Quick Script Runner)
+![QSR Preview](docs/preview_qsr.png) 
+*Scripts not included*
+
 A Blender add-on for organizing, accessing, and running Python scripts from the N-Panel.
 
 ### Features
@@ -10,6 +13,7 @@ A Blender add-on for organizing, accessing, and running Python scripts from the 
 * Open the scripts folder directly from Blender.
 
 ## Merginator
+![QSR Preview](docs/preview_merginator.png)
 A Blender add-on for preparing models for export by merging, renaming, and organizing mesh objects.
 Originally created and used while modding [vehicles](https://www.nexusmods.com/profile/MAXSA5/mods) for Cyberpunk 2077.
 
