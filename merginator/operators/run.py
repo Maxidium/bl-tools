@@ -1,5 +1,6 @@
 import bpy
 
+from .transform import apply_all_transforms
 from .join import join_meshes
 from .rename import rename_objects
 from .move_to_parent import move_objects_to_parent
@@ -20,6 +21,7 @@ class MERGINATOR_OT_Run(bpy.types.Operator):
             self.report({'ERROR'},"No active collection",)
             return {'CANCELLED'}
         
+        apply_all_transforms(collection)
 
         if settings.join_meshes:
             join_meshes(context,collection,)
@@ -35,6 +37,6 @@ class MERGINATOR_OT_Run(bpy.types.Operator):
             select_objects(collection)
 
 
-        self.report({'INFO'},"MERGINATED!",)
+        self.report({'INFO'},"Merginated!",)
 
         return {'FINISHED'}

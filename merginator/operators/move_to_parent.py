@@ -40,11 +40,7 @@ def remove_empty_children(collection):
 
         remove_empty_children(child)
 
-
-        if (
-            len(child.objects) == 0
-            and len(child.children) == 0
-        ):
+        if (len(child.objects) == 0 and len(child.children) == 0):
             bpy.data.collections.remove(child)
 
 

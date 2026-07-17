@@ -54,4 +54,4 @@ class MERGINATOR_PT_Main(bpy.types.Panel):
         # Run
         # --------------------------------------------------
 
-        layout.operator("merginator.run",text="Merginate",)
+        layout.operator("merginator.run",text="Meginate",)
